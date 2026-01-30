@@ -1,767 +1,315 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="PODA Comunicación — menos ruido, más intención." />
-  <title>PODA Comunicación</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="PODA Comunicación — menos ruido, más intención." />
+    <title>PODA Comunicación</title>
 
-  <!-- Fonts: Montserrat (PODA) + Outfit (comunicación/body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+    <!-- Fonts: Montserrat (PODA) + Outfit (comunicación/body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet" />
 
-  <!-- AOS (subtle scroll animations) -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <!-- Lucide icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <style>
-    :root{
-      --bg: #fbfbf8;
-      --surface: rgba(255,255,255,.68);
-      --text: #0f1f1b;
-      --muted: rgba(15,31,27,.70);
-      --line: rgba(15,31,27,.12);
-
-      --green: #0e4a43;   /* deep teal-green */
-      --magenta: #c41b6d; /* accent */
-      --yellow: #f1c232;  /* accent */
-
-      --shadow: 0 14px 36px rgba(0,0,0,.08);
-      --radius: 18px;
-
-      --container: 1120px;
-    }
-
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: "Outfit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight: 300; /* Outfit Light-ish feel */
-      color: var(--text);
-      background:
-        radial-gradient(900px 520px at 12% -5%, rgba(14,74,67,.10), transparent 55%),
-        radial-gradient(900px 520px at 90% 10%, rgba(196,27,109,.07), transparent 55%),
-        radial-gradient(700px 460px at 70% 110%, rgba(241,194,50,.08), transparent 50%),
-        var(--bg);
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    .container{
-      width:min(var(--container), calc(100% - 40px));
-      margin:0 auto;
-    }
-
-    /* Typography system */
-    .brand-title{
-      font-family: "Montserrat", sans-serif;
-      letter-spacing: -0.8px;
-    }
-    h1,h2,h3{ margin:0; }
-    h1{
-      font-size: clamp(38px, 4.4vw, 62px);
-      line-height: 1.02;
-      letter-spacing: -0.9px;
-    }
-    h2{
-      font-size: clamp(26px, 2.6vw, 38px);
-      line-height: 1.1;
-      letter-spacing: -0.6px;
-    }
-    p{
-      margin:0;
-      color: var(--muted);
-      font-size: 16.5px;
-      line-height: 1.7;
-    }
-    .lead{
-      font-size: 18px;
-      max-width: 62ch;
-    }
-
-    /* Layout helpers */
-    section{ padding: 88px 0; }
-    .grid{ display:grid; gap: 18px; }
-
-    /* Nav */
-    .nav{
-      position: sticky;
-      top:0;
-      z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(251,251,248,.68);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 14px 0;
-      gap: 16px;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap: 12px;
-      min-width: 240px;
-    }
-    .brand img{
-      width: 46px; height: 46px;
-      object-fit: contain;
-      border-radius: 14px;
-      background: white;
-      border: 1px solid var(--line);
-      padding: 6px;
-    }
-    .brand .lockup{
-      display:flex; flex-direction: column; line-height: 1.05;
-    }
-    .brand .lockup .poda{
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.6px;
-      font-size: 18px;
-      color: var(--text);
-    }
-    .brand .lockup .com{
-      font-family: "Outfit", sans-serif;
-      font-weight: 200; /* Outfit Light */
-      letter-spacing: 0.2px;
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-
-    .nav-links{
-      display:flex;
-      gap: 18px;
-      align-items:center;
-    }
-    .nav-links a{
-      font-size: 14px;
-      color: var(--muted);
-      padding: 10px 10px;
-      border-radius: 999px;
-      transition: background .15s ease, color .15s ease;
-    }
-    .nav-links a:hover{
-      color: var(--text);
-      background: rgba(14,74,67,.06);
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.65);
-      color: var(--text);
-      font-weight: 500;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
-    .btn-primary{
-      background: linear-gradient(135deg, var(--green), #0b3b35);
-      color: white;
-      border-color: rgba(255,255,255,.16);
-    }
-    .btn-primary:hover{ box-shadow: 0 18px 40px rgba(14,74,67,.22); }
-
-    .burger{
-      display:none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,.65);
-      cursor:pointer;
-    }
-
-    /* Hero */
-    .hero{ padding-top: 66px; }
-    .hero-wrap{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 26px;
-      align-items: start;
-    }
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.62);
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .dot{
-      width: 8px; height: 8px; border-radius: 999px;
-      background: var(--yellow);
-      box-shadow: 0 0 0 4px rgba(241,194,50,.18);
-    }
-
-    .hero h1 span{
-      color: var(--green);
-    }
-
-    .hero-actions{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .panel{
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
-    }
-    .mini{
-      display:flex; flex-direction: column; gap: 12px;
-    }
-    .mini .item{
-      display:flex; gap: 12px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,31,27,.10);
-      background: rgba(255,255,255,.50);
-    }
-    .icon{
-      width: 38px; height: 38px;
-      display:grid; place-items:center;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: white;
-      flex: 0 0 auto;
-    }
-    .icon.magenta{ box-shadow: 0 0 0 4px rgba(196,27,109,.12); }
-    .icon.yellow{ box-shadow: 0 0 0 4px rgba(241,194,50,.16); }
-
-    /* Manifiesto */
-    .quote{
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
-      position: relative;
-      overflow:hidden;
-    }
-    .quote:before{
-      content:"";
-      position:absolute;
-      inset: -130px -90px auto auto;
-      width: 240px; height: 240px;
-      background: radial-gradient(circle at 30% 30%, rgba(196,27,109,.18), transparent 60%);
-      transform: rotate(12deg);
-    }
-    blockquote{
-      margin:0;
-      white-space: pre-line;
-      font-size: 18px;
-      line-height: 1.75;
-      color: rgba(15,31,27,.84);
-      position: relative;
-      z-index:1;
-    }
-
-    /* Services */
-    .cards{ grid-template-columns: repeat(3, 1fr); }
-    .card{
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.04);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      min-height: 170px;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: rgba(14,74,67,.25);
-    }
-    .card h3{
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      font-size: 16px;
-      margin: 10px 0 6px;
-    }
-    .card p{ font-size: 14.8px; }
-
-    /* How we work */
-    .steps{ grid-template-columns: repeat(4, 1fr); }
-    .step{
-      padding: 18px;
-      border-radius: var(--radius);
-      border: 1px dashed rgba(15,31,27,.18);
-      background: rgba(255,255,255,.46);
-    }
-    .step .num{
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      color: var(--green);
-      font-size: 20px;
-      letter-spacing: -0.4px;
-    }
-    .step h3{
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      margin: 10px 0 6px;
-      letter-spacing: -0.2px;
-    }
-    .step p{ font-size: 14.6px; }
-
-    /* CTA */
-    .cta{
-      padding: 76px 0 100px;
-    }
-    .cta-box{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      align-items: start;
-      background: linear-gradient(135deg, rgba(14,74,67,.10), rgba(255,255,255,.70));
-      border: 1px solid rgba(14,74,67,.20);
-      border-radius: calc(var(--radius) + 6px);
-      padding: 22px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.06);
-    }
-    .cta h2{
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-    }
-    .form{
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 14px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(15,31,27,.10);
-      background: rgba(255,255,255,.62);
-    }
-    .field{
-      display:flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    label{
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-    input, textarea{
-      font: inherit;
-      font-weight: 300;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,31,27,.16);
-      background: rgba(255,255,255,.86);
-      outline: none;
-    }
-    input:focus, textarea:focus{
-      border-color: rgba(14,74,67,.40);
-      box-shadow: 0 0 0 4px rgba(14,74,67,.10);
-    }
-    textarea{ min-height: 92px; resize: vertical; }
-
-    .note{
-      font-size: 12.5px;
-      color: rgba(15,31,27,.55);
-    }
-
-    footer{
-      padding: 26px 0 44px;
-      border-top: 1px solid var(--line);
-      background: rgba(255,255,255,.35);
-    }
-    .footer-inner{
-      display:flex;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-      align-items:center;
-    }
-    .small{ font-size: 13px; color: var(--muted); }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.6);
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .badge b{ color: var(--text); font-weight: 600; }
-
-    /* Mobile */
-    @media (max-width: 980px){
-      .hero-wrap{ grid-template-columns: 1fr; }
-      .cta-box{ grid-template-columns: 1fr; }
-      .cards{ grid-template-columns: 1fr; }
-      .steps{ grid-template-columns: 1fr; }
-      .nav-links{ display:none; }
-      .burger{ display:inline-flex; }
-      .nav.open .nav-links{
-        display:flex;
-        flex-direction: column;
-        align-items:flex-start;
-        gap: 8px;
-        padding: 10px 0 14px;
-      }
-      .nav.open .nav-inner{
-        align-items:flex-start;
-      }
-      .nav.open .nav-cta{ margin-left:auto; }
-    }
-  </style>
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- NAV -->
-  <header class="nav" id="nav">
-    <div class="container">
-      <div class="nav-inner">
-        <a class="brand" href="#top" aria-label="PODA Comunicación">
-          <!-- Replace with your logo path -->
-          <img src="assets/WhatsApp Image 2026-01-27 at 4.41.27 PM.jpeg" alt="Logo PODA" />
-          <div class="lockup">
-            <div class="poda">PODA</div>
-            <div class="com">comunicación</div>
-          </div>
-        </a>
+    <!-- NAV -->
+    <header class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a class="brand" href="#top" aria-label="PODA Comunicación">
+                    <img src="assets/PODA LOGOS .png" alt="Logo PODA" />
+                    <div class="lockup">
+                        <div class="poda">PODA</div>
+                        <div class="com">comunicación</div>
+                    </div>
+                </a>
 
-        <nav class="nav-links" aria-label="Secciones">
-          <a href="#manifiesto">Manifiesto</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#metodo">Cómo trabajamos</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
+                <nav class="nav-links" aria-label="Secciones" id="navLinks">
+                    <a href="#manifiesto">Manifiesto</a>
+                    <a href="#servicios">Servicios</a>
+                    <a href="#metodo">Cómo trabajamos</a>
+                    <a href="#contacto">Contacto</a>
+                </nav>
 
-        <div class="nav-cta">
-          <button class="burger" id="burger" aria-label="Abrir menú">
-            <i data-lucide="menu"></i>
-          </button>
-          <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
-          <a class="btn btn-primary" href="#contacto">
-            <i data-lucide="sparkles"></i>
-            Agendar charla
-          </a>
+                <div class="nav-cta">
+                    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+                    <a class="btn btn-primary" href="#contacto">
+                        <i data-lucide="sparkles"></i>
+                        Agendar charla
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- HERO -->
-  <main id="top">
-    <section class="hero">
-      <div class="container">
-        <div class="hero-wrap">
-          <div data-aos="fade-up">
-            <div class="kicker"><span class="dot"></span> Menos ruido. Más intención.</div>
-            <h1 class="brand-title" style="margin-top:14px;">
-              Comunicación estratégica que <span>ordena</span> y se puede sostener.
-            </h1>
-            <p class="lead" style="margin-top:12px;">
-              Podamos lo innecesario para que tu marca gane claridad: ideas con propósito, estética con sentido
-              y sistemas que acompañan el crecimiento.
-            </p>
+    <!-- HERO -->
+    <main id="top">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-wrap">
+                    <div data-aos="fade-up">
+                        <div class="kicker"><span class="dot"></span> Menos ruido. Más intención.</div>
 
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#contacto">
-                <i data-lucide="calendar"></i>
-                Agendar una charla
-              </a>
-              <a class="btn" href="#manifiesto">
-                <i data-lucide="arrow-down"></i>
-                Conocer nuestra mirada
-              </a>
+                        <h1 class="brand-title hero-title">
+                            Comunicación estratégica que <span>ordena</span> y se puede sostener.
+                        </h1>
+
+                        <p class="lead hero-lead">
+                            Podamos lo innecesario para que tu marca gane claridad: ideas con propósito, estética con
+                            sentido
+                            y sistemas que acompañan el crecimiento.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a class="btn btn-primary" href="#contacto">
+                                <i data-lucide="calendar"></i>
+                                Agendar una charla
+                            </a>
+                            <a class="btn" href="#manifiesto">
+                                <i data-lucide="arrow-down"></i>
+                                Conocer nuestra mirada
+                            </a>
+                        </div>
+
+                        <div class="grid hero-badges">
+                            <div class="badge"><i data-lucide="leaf"></i> <b>Claridad</b> antes que volumen</div>
+                            <div class="badge"><i data-lucide="target"></i> <b>Intención</b> antes que tendencia</div>
+                            <div class="badge"><i data-lucide="sprout"></i> <b>Sistema</b> antes que caos</div>
+                        </div>
+                    </div>
+
+                    <aside class="panel mini" data-aos="fade-up" data-aos-delay="80">
+                        <div class="item">
+                            <div class="icon magenta"><i data-lucide="scissors"></i></div>
+                            <div>
+                                <p class="item-title">Poda estratégica</p>
+                                <p>Diagnóstico + foco: sacamos lo que sobra para que lo esencial reciba luz.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon yellow"><i data-lucide="layout-template"></i></div>
+                            <div>
+                                <p class="item-title">Diseño con propósito</p>
+                                <p>Identidad y piezas que se ven bien y funcionan en el día a día.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon"><i data-lucide="bar-chart-3"></i></div>
+                            <div>
+                                <p class="item-title">Sistemas & medición</p>
+                                <p>Orden y seguimiento para crecer con decisiones informadas.</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
             </div>
+        </section>
 
-            <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px;">
-              <div class="badge"><i data-lucide="leaf"></i> <b>Claridad</b> antes que volumen</div>
-              <div class="badge"><i data-lucide="target"></i> <b>Intención</b> antes que tendencia</div>
-              <div class="badge"><i data-lucide="sprout"></i> <b>Sistema</b> antes que caos</div>
+        <!-- MANIFIESTO -->
+        <section id="manifiesto">
+            <div class="container">
+                <div class="section-head" data-aos="fade-up">
+                    <h2 class="brand-title">Nuestra mirada</h2>
+                    <p class="lead" style="margin-top:10px;">
+                        Comunicar no es estar en todo. Es elegir lo esencial, con intención.
+                    </p>
+                </div>
+
+                <div class="quote" data-aos="fade-up" data-aos-delay="60">
+                    <blockquote>
+                        Creemos en la creatividad que se puede sostener.
+                        En ideas que no solo se ven bien, sino que funcionan.
+                        En decisiones informadas, procesos claros
+                        y una comunicación que ordena en lugar de sumar caos.
+
+                        Porque crecer no es hacer más.
+                        Es hacer mejor.
+                    </blockquote>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <aside class="panel mini" data-aos="fade-up" data-aos-delay="80">
-            <div class="item">
-              <div class="icon magenta"><i data-lucide="scissors"></i></div>
-              <div>
-                <p style="color:var(--text); font-weight:500; margin-bottom:2px;">Poda estratégica</p>
-                <p>Diagnóstico + foco: sacamos lo que sobra para que lo esencial reciba luz.</p>
-              </div>
+        <!-- SERVICIOS -->
+        <section id="servicios">
+            <div class="container">
+                <div class="section-head" data-aos="fade-up">
+                    <h2 class="brand-title">Servicios</h2>
+                    <p class="lead" style="margin-top:10px;">
+                        Intervenimos con precisión: estrategia, creatividad y sistemas que sostienen el crecimiento.
+                    </p>
+                </div>
+
+                <div class="grid cards" style="margin-top:18px;">
+                    <article class="card" data-aos="fade-up">
+                        <div class="icon magenta"><i data-lucide="scan-search"></i></div>
+                        <h3>Diagnóstico & Poda estratégica</h3>
+                        <p>Auditamos tu comunicación y definimos qué sacar, qué sostener y qué priorizar para ganar
+                            claridad.</p>
+                    </article>
+
+                    <article class="card" data-aos="fade-up" data-aos-delay="40">
+                        <div class="icon"><i data-lucide="map"></i></div>
+                        <h3>Estrategia de comunicación</h3>
+                        <p>Mensaje central, tono, narrativa y roadmap. Qué decir, dónde y para qué.</p>
+                    </article>
+
+                    <article class="card" data-aos="fade-up" data-aos-delay="80">
+                        <div class="icon yellow"><i data-lucide="pen-tool"></i></div>
+                        <h3>Identidad & diseño con propósito</h3>
+                        <p>Sistemas visuales y piezas base que acompañan el día a día sin perder coherencia.</p>
+                    </article>
+
+                    <article class="card" data-aos="fade-up" data-aos-delay="120">
+                        <div class="icon"><i data-lucide="files"></i></div>
+                        <h3>Contenidos con intención</h3>
+                        <p>Menos publicaciones, más significado: contenido que aporta valor y construye confianza.</p>
+                    </article>
+
+                    <article class="card" data-aos="fade-up" data-aos-delay="160">
+                        <div class="icon"><i data-lucide="gauge"></i></div>
+                        <h3>Sistemas & medición</h3>
+                        <p>Tracking y estructura para tomar decisiones informadas (GA4, GTM, píxeles, landings).</p>
+                    </article>
+
+                    <article class="card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon magenta"><i data-lucide="handshake"></i></div>
+                        <h3>Acompañamiento mensual</h3>
+                        <p>Partner estratégico: planificación, ejecución y mejora continua con foco en lo esencial.</p>
+                    </article>
+                </div>
             </div>
-            <div class="item">
-              <div class="icon yellow"><i data-lucide="layout-template"></i></div>
-              <div>
-                <p style="color:var(--text); font-weight:500; margin-bottom:2px;">Diseño con propósito</p>
-                <p>Identidad y piezas que se ven bien y funcionan en el día a día.</p>
-              </div>
+        </section>
+
+        <!-- METODO -->
+        <section id="metodo">
+            <div class="container">
+                <div class="section-head" data-aos="fade-up">
+                    <h2 class="brand-title">Cómo trabajamos</h2>
+                    <p class="lead" style="margin-top:10px;">
+                        Un proceso simple, claro y medible. Sin sobrecargar. Sin improvisar.
+                    </p>
+                </div>
+
+                <div class="grid steps" style="margin-top:18px;">
+                    <div class="step" data-aos="fade-up">
+                        <div class="num">01</div>
+                        <h3>Diagnosticar y simplificar</h3>
+                        <p>Revisamos tu comunicación y detectamos exceso, dispersión y oportunidades.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="40">
+                        <div class="num">02</div>
+                        <h3>Definir intención</h3>
+                        <p>Alineamos mensaje, objetivos y una estrategia que se pueda sostener.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="80">
+                        <div class="num">03</div>
+                        <h3>Construir sistema</h3>
+                        <p>Diseño, contenido y herramientas para que todo funcione con orden.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="120">
+                        <div class="num">04</div>
+                        <h3>Medir y ajustar</h3>
+                        <p>Seguimiento simple: lo que sirve se escala, lo que estorba se poda.</p>
+                    </div>
+                </div>
             </div>
-            <div class="item">
-              <div class="icon"><i data-lucide="bar-chart-3"></i></div>
-              <div>
-                <p style="color:var(--text); font-weight:500; margin-bottom:2px;">Sistemas & medición</p>
-                <p>Orden y seguimiento para crecer con decisiones informadas.</p>
-              </div>
+        </section>
+
+        <!-- CTA / CONTACTO -->
+        <section class="cta" id="contacto">
+            <div class="container">
+                <div class="cta-box" data-aos="fade-up">
+                    <div>
+                        <h2 class="brand-title">Si tu comunicación hace ruido, es momento de podar.</h2>
+                        <p class="lead" style="margin-top:10px;">
+                            Contanos en qué estás y te proponemos un camino claro para ordenar, medir y crecer con
+                            intención.
+                        </p>
+
+                        <div class="hero-actions" style="margin-top:16px;">
+                            <a class="btn btn-primary" href="#contacto" id="focusFormBtn">
+                                <i data-lucide="mail"></i>
+                                Empezar por acá
+                            </a>
+                            <a class="btn" href="#servicios">
+                                <i data-lucide="arrow-up-right"></i>
+                                Ver servicios
+                            </a>
+                        </div>
+
+                        <p class="note" style="margin-top:10px;">
+                            Respuesta en 24–48 hs hábiles. Sin spam. Sin vueltas.
+                        </p>
+                    </div>
+
+                    <form class="form" id="contactForm">
+                        <div class="field">
+                            <label for="name">Nombre</label>
+                            <input id="name" name="name" placeholder="Tu nombre" required />
+                        </div>
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="tu@email.com" required />
+                        </div>
+                        <div class="field">
+                            <label for="msg">¿Qué necesitás ordenar?</label>
+                            <textarea id="msg" name="msg"
+                                placeholder="Contanos contexto, objetivo y canal (IG / web / campañas)…"
+                                required></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">
+                            <i data-lucide="send"></i>
+                            Enviar
+                        </button>
+
+                        <div class="note" id="formNote" aria-live="polite"></div>
+                    </form>
+                </div>
             </div>
-          </aside>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- MANIFIESTO -->
-    <section id="manifiesto">
-      <div class="container">
-        <div class="grid" style="grid-template-columns: 1fr; gap: 18px;">
-          <div data-aos="fade-up">
-            <h2 class="brand-title">Nuestra mirada</h2>
-            <p class="lead" style="margin-top:10px;">
-              Comunicar no es estar en todo. Es elegir lo esencial, con intención.
-            </p>
-          </div>
+        <footer>
+            <div class="container">
+                <div class="footer-inner">
+                    <div class="brand" style="min-width:auto;">
+                        <img src="assets/PODA LOGOS .png" alt="Logo PODA" />
+                        <div class="lockup">
+                            <div class="poda">PODA</div>
+                            <div class="com">comunicación</div>
+                        </div>
+                    </div>
 
-          <div class="quote" data-aos="fade-up" data-aos-delay="60">
-            <blockquote>
-Creemos en la creatividad que se puede sostener.
-En ideas que no solo se ven bien, sino que funcionan.
-En decisiones informadas, procesos claros
-y una comunicación que ordena en lugar de sumar caos.
+                    <div class="small">© <span id="year"></span> PODA Comunicación · Menos ruido. Más intención.</div>
 
-Porque crecer no es hacer más.
-Es hacer mejor.
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICIOS -->
-    <section id="servicios">
-      <div class="container">
-        <div data-aos="fade-up">
-          <h2 class="brand-title">Servicios</h2>
-          <p class="lead" style="margin-top:10px;">
-            Intervenimos con precisión: estrategia, creatividad y sistemas que sostienen el crecimiento.
-          </p>
-        </div>
-
-        <div class="grid cards" style="margin-top: 18px;">
-          <article class="card" data-aos="fade-up" data-aos-delay="0">
-            <div class="icon magenta"><i data-lucide="scan-search"></i></div>
-            <h3>Diagnóstico & Poda estratégica</h3>
-            <p>Auditamos tu comunicación y definimos qué sacar, qué sostener y qué priorizar para ganar claridad.</p>
-          </article>
-
-          <article class="card" data-aos="fade-up" data-aos-delay="40">
-            <div class="icon"><i data-lucide="map"></i></div>
-            <h3>Estrategia de comunicación</h3>
-            <p>Mensaje central, tono, narrativa y roadmap. Qué decir, dónde y para qué.</p>
-          </article>
-
-          <article class="card" data-aos="fade-up" data-aos-delay="80">
-            <div class="icon yellow"><i data-lucide="pen-tool"></i></div>
-            <h3>Identidad & diseño con propósito</h3>
-            <p>Sistemas visuales y piezas base que acompañan el día a día sin perder coherencia.</p>
-          </article>
-
-          <article class="card" data-aos="fade-up" data-aos-delay="120">
-            <div class="icon"><i data-lucide="files"></i></div>
-            <h3>Contenidos con intención</h3>
-            <p>Menos publicaciones, más significado: contenido que aporta valor y construye confianza.</p>
-          </article>
-
-          <article class="card" data-aos="fade-up" data-aos-delay="160">
-            <div class="icon"><i data-lucide="gauge"></i></div>
-            <h3>Sistemas & medición</h3>
-            <p>Tracking y estructura para tomar decisiones informadas (GA4, GTM, píxeles, landings).</p>
-          </article>
-
-          <article class="card" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon magenta"><i data-lucide="handshake"></i></div>
-            <h3>Acompañamiento mensual</h3>
-            <p>Nos integramos como partner: planificación, ejecución y mejora continua con foco en lo esencial.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- METODO -->
-    <section id="metodo">
-      <div class="container">
-        <div data-aos="fade-up">
-          <h2 class="brand-title">Cómo trabajamos</h2>
-          <p class="lead" style="margin-top:10px;">
-            Un proceso simple, claro y medible. Sin sobrecargar. Sin improvisar.
-          </p>
-        </div>
-
-        <div class="grid steps" style="margin-top: 18px;">
-          <div class="step" data-aos="fade-up" data-aos-delay="0">
-            <div class="num">01</div>
-            <h3>Diagnosticar y simplificar</h3>
-            <p>Revisamos tu comunicación y detectamos exceso, dispersión y oportunidades.</p>
-          </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="40">
-            <div class="num">02</div>
-            <h3>Definir intención</h3>
-            <p>Alineamos mensaje, objetivos y una estrategia que se pueda sostener.</p>
-          </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="80">
-            <div class="num">03</div>
-            <h3>Construir sistema</h3>
-            <p>Diseño, contenido y herramientas para que todo funcione con orden.</p>
-          </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="120">
-            <div class="num">04</div>
-            <h3>Medir y ajustar</h3>
-            <p>Seguimiento simple: lo que sirve se escala, lo que estorba se poda.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA / CONTACTO -->
-    <section class="cta" id="contacto">
-      <div class="container">
-        <div class="cta-box" data-aos="fade-up">
-          <div>
-            <h2 class="brand-title">Si tu comunicación hace ruido, es momento de podar.</h2>
-            <p class="lead" style="margin-top:10px;">
-              Contanos en qué estás y te proponemos un camino claro para ordenar, medir y crecer con intención.
-            </p>
-            <div class="hero-actions" style="margin-top:16px;">
-              <a class="btn btn-primary" href="#contacto" id="focusFormBtn">
-                <i data-lucide="mail"></i>
-                Empezar por acá
-              </a>
-              <a class="btn" href="#servicios">
-                <i data-lucide="arrow-up-right"></i>
-                Ver servicios
-              </a>
+                    <div class="badge">
+                        <i data-lucide="sparkle"></i>
+                        <span>Comunicación que <b>ordena</b>.</span>
+                    </div>
+                </div>
             </div>
-            <p class="note" style="margin-top:10px;">
-              Respuesta en 24–48 hs hábiles. Sin spam. Sin vueltas.
-            </p>
-          </div>
+        </footer>
+    </main>
 
-          <form class="form" id="contactForm">
-            <div class="field">
-              <label for="name">Nombre</label>
-              <input id="name" name="name" placeholder="Tu nombre" required />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="tu@email.com" required />
-            </div>
-            <div class="field">
-              <label for="msg">¿Qué necesitás ordenar?</label>
-              <textarea id="msg" name="msg" placeholder="Contanos contexto, objetivo y canal (IG / web / campañas)…" required></textarea>
-            </div>
-            <button class="btn btn-primary" type="submit">
-              <i data-lucide="send"></i>
-              Enviar
-            </button>
-            <div class="note" id="formNote" aria-live="polite"></div>
-          </form>
-        </div>
-      </div>
-    </section>
+    <!-- libs -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <footer>
-      <div class="container">
-        <div class="footer-inner">
-          <div class="brand" style="min-width:auto;">
-            <img src="assets/WhatsApp Image 2026-01-27 at 4.41.27 PM.jpeg" alt="Logo PODA" />
-            <div class="lockup">
-              <div class="poda">PODA</div>
-              <div class="com">comunicación</div>
-            </div>
-          </div>
-
-          <div class="small">© <span id="year"></span> PODA Comunicación · Menos ruido. Más intención.</div>
-
-          <div class="badge">
-            <i data-lucide="sparkle"></i>
-            <span>Comunicación que <b>ordena</b>.</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    // Icons
-    lucide.createIcons();
-
-    // AOS
-    AOS.init({
-      duration: 650,
-      once: true,
-      offset: 90,
-      easing: "ease-out-cubic",
-    });
-
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Mobile nav toggle
-    const nav = document.getElementById("nav");
-    const burger = document.getElementById("burger");
-    burger?.addEventListener("click", () => {
-      nav.classList.toggle("open");
-    });
-
-    // Focus form from CTA button
-    document.getElementById("focusFormBtn")?.addEventListener("click", () => {
-      setTimeout(() => document.getElementById("name")?.focus(), 150);
-    });
-
-    // Simple form handler (no backend): builds a mailto link
-    const form = document.getElementById("contactForm");
-    const note = document.getElementById("formNote");
-
-    form?.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const msg = document.getElementById("msg").value.trim();
-
-      if (!name || !email || !msg) return;
-
-      const subject = encodeURIComponent("Contacto — PODA Comunicación");
-      const body = encodeURIComponent(
-        `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${msg}\n`
-      );
-
-      // Replace with your real email
-      const to = "hola@podacomunicacion.com";
-      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
-
-      note.textContent = "Listo. Abriendo tu email para enviar el mensaje…";
-      window.location.href = mailto;
-
-      // Optional: reset
-      form.reset();
-      setTimeout(() => (note.textContent = ""), 4500);
-    });
-  </script>
+    <!-- your JS -->
+    <script src="main.js"></script>
 </body>
+
 </html>
