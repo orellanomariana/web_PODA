@@ -346,7 +346,7 @@ section {
 }
 
 .icon svg {
-    stroke: rgba(255, 255, 255, .92);
+    stroke: #0cc0df;
 }
 
 .icon.magenta {
@@ -549,7 +549,7 @@ textarea {
 footer {
     padding: 26px 0 44px;
     border-top: 1px solid rgba(255, 255, 255, .12);
-    background: rgba(6, 6, 6, .98);
+    background: #0cc0df;
 }
 
 .footer-inner {
@@ -573,6 +573,63 @@ footer .badge {
 footer .badge svg {
     stroke: var(--yellow);
 }
+
+/* ---------- ATMÓSFERA (glow sutil) ---------- */
+body {
+    background:
+        radial-gradient(900px 520px at 12% -5%, rgba(196, 27, 109, .10), transparent 55%),
+        radial-gradient(700px 460px at 70% 110%, rgba(241, 194, 50, .08), transparent 52%),
+        var(--bg);
+}
+
+/* ---------- MICRO-MOVIMIENTO (premium, sutil) ---------- */
+.card,
+.badge,
+.item,
+.step,
+.btn,
+.icon {
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(241, 194, 50, .38);
+}
+
+.item:hover,
+.step:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .22);
+}
+
+.icon:hover {
+    transform: translateY(-1px);
+    border-color: rgba(196, 27, 109, .45);
+}
+
+/* click “táctil” */
+.btn:active {
+    transform: translateY(0) scale(.99);
+}
+
+/* ---------- PULSO SUAVE (opcional) ---------- */
+.dot {
+    animation: podapulse 2.8s ease-in-out infinite;
+}
+
+@keyframes podapulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 4px rgba(241, 194, 50, .14);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(241, 194, 50, .22);
+    }
+}
+
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 980px) {
@@ -647,4 +704,9 @@ footer .badge svg {
     .steps {
         grid-template-columns: 1fr;
     }
+}
+
+/* AOS: priorizar transform de AOS durante la animación */
+[data-aos] {
+  will-change: transform, opacity;
 }

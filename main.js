@@ -1,15 +1,24 @@
 // Init icons
 if (window.lucide) lucide.createIcons();
 
-// Init AOS
+// Init AOS (más suave, menos brusco en mobile)
 if (window.AOS) {
-    AOS.init({
-        duration: 650,
-        once: true,
-        offset: 90,
-        easing: "ease-out-cubic",
-    });
+  AOS.init({
+    duration: 900,       // más lento
+    easing: "ease-out",  // menos “snap” que cubic
+    offset: 140,         // empieza un poco antes (más gradual)
+    delay: 60,           // micro-pausa para que no “salte”
+    once: true,
+    mirror: false,
+  });
 }
+
+// Recalcular posiciones después de cargar (fuentes + imágenes)
+window.addEventListener("load", () => {
+  if (window.AOS) AOS.refreshHard();
+});
+
+
 
 // Year
 const yearEl = document.getElementById("year");
@@ -68,4 +77,17 @@ form?.addEventListener("submit", (e) => {
     setTimeout(() => {
         if (note) note.textContent = "";
     }, 4500);
+});
+
+// AOS: asegurar cálculo correcto después de cargar (imágenes/logos)
+window.addEventListener("load", () => {
+    if (window.AOS) {
+        AOS.refreshHard();
+    }
+});
+// AOS: recalcular posiciones cuando cargan fuentes + imágenes (clave en mobile)
+window.addEventListener("load", () => {
+    if (window.AOS) {
+        AOS.refreshHard();
+    }
 });
