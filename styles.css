@@ -269,7 +269,7 @@ section {
 }
 
 .hero-badges {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-top: 18px;
 }
@@ -294,6 +294,48 @@ section {
 .badge svg {
     stroke: var(--yellow);
 }
+
+/* BADGES PODA (monograma) */
+.badge.badge-poda{
+  gap: 12px;
+  align-items: center;
+}
+
+.badge.badge-poda .mono{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.2px;
+
+  color: #fff;
+  border: 1px solid rgba(241, 194, 50, .55);
+  background: rgba(241, 194, 50, .14);
+  box-shadow: 0 0 0 4px rgba(241, 194, 50, .10);
+}
+
+.badge.badge-poda .btxt{
+  display: inline-flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.badge.badge-poda b{
+  color: #fff;
+}
+
+/* Si querés que SOLO 1 badge sea más protagonista */
+.badge.badge-poda.is-accent .mono{
+  border-color: rgba(196, 27, 109, .65);
+  background: rgba(196, 27, 109, .16);
+  box-shadow: 0 0 0 4px rgba(196, 27, 109, .10);
+}
+
 
 /* ---------- PANELS / ITEMS ---------- */
 .panel {
@@ -630,6 +672,12 @@ body {
     }
 }
 
+/* 3 cards para "Tres formas..." sin tocar Servicios */
+.cards.cards-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 980px) {
@@ -704,9 +752,91 @@ body {
     .steps {
         grid-template-columns: 1fr;
     }
+
+    .cards.cards-3 {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* FOOTER – celeste PODA */
+.site-footer {
+    background: #0cc0df;
+    /* mantenemos el celeste */
+    padding: 28px 0 36px;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+}
+
+/* logo */
+.footer-left img {
+    width: 90px;
+    height: auto;
+    display: block;
+}
+
+/* texto central */
+.footer-center {
+    text-align: center;
+    font-size: 15px;
+    /* más grande */
+    font-weight: 400;
+    color: rgba(255, 255, 255, .92);
+    /* no blanco puro */
+    letter-spacing: .2px;
+}
+
+/* derecha */
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, .85);
+}
+
+/* instagram */
+.footer-ig {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    transition: transform .15s ease, background .15s ease;
+}
+
+.footer-ig svg {
+    width: 18px;
+    height: 18px;
+    stroke: #ffffff;
+}
+
+.footer-ig:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, .28);
+}
+
+/* mobile */
+@media (max-width: 980px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 14px;
+    }
+
+    .footer-right {
+        justify-content: center;
+    }
 }
 
 /* AOS: priorizar transform de AOS durante la animación */
 [data-aos] {
-  will-change: transform, opacity;
+    will-change: transform, opacity;
 }
